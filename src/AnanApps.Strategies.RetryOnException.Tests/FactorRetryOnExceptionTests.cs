@@ -117,17 +117,17 @@
     internal class TimeoutFactorRetryOnExceptionService : IRetryOnExceptionService
     {
         private readonly IRetryOnExceptionPolicy policy;
-        private readonly IEnumerable<Type> exceptions;
+        private readonly IEnumerable<Type> transientExceptionTypes;
 
         public TimeoutFactorRetryOnExceptionService(int times, TimeSpan delay, int factor)
         {
-            this.exceptions = new[] { typeof(TimeoutException) };
+            this.transientExceptionTypes = new[] { typeof(TimeoutException) };
             this.policy = RetryOnExceptionPolicyFactory.CreateFactorRetryOnExceptionPolicy(times, delay, factor);
         }
 
         public void Execute(Action<CancellationToken> action, CancellationToken token)
         {
-            var context = new RetryOnExceptionContext(this.policy, this.exceptions, token);
+            var context = new RetryOnExceptionContext(this.policy, this.transientExceptionTypes, token);
 
             RetryOnException.Action(context, action);
         }

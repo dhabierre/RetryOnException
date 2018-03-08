@@ -30,7 +30,7 @@ internal class TimeoutFactorRetryOnExceptionService : IRetryOnExceptionService
 
     public TimeoutFactorRetryOnExceptionService(int times, TimeSpan delay, int factor)
     {
-        this.exceptions = new[] { typeof(TimeoutException) }; // perform retry on these exception types
+        this.transientExceptionTypes = new[] { typeof(TimeoutException) }; // perform retry on these exception types
         this.policy = RetryOnExceptionPolicyFactory.CreateFactorRetryOnExceptionPolicy(times, delay, factor);
     }
 
