@@ -55,10 +55,14 @@ retryService.Execute((token) =>
 CancellationToken.None);
 ```
 
-Note: some samples are available in the unit tests
+Note: some Async samples are available in the unit tests
 
 
 ## Requirements
 
 - Visual Studio 2017
 - .NET Framework 4.5
+
+## TODO
+
+- Async unit tests

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
     using FluentAssertions;
     using NUnit.Framework;
 
@@ -130,6 +131,13 @@
             var context = new RetryOnExceptionContext(this.policy, this.transientExceptionTypes, token);
 
             RetryOnException.Action(context, action);
+        }
+
+        public async Task ExecuteAsync(Func<CancellationToken, Task> action, CancellationToken token)
+        {
+            var context = new RetryOnExceptionContext(this.policy, this.transientExceptionTypes, token);
+
+            await RetryOnException.ActionAsync(context, action);
         }
     }
 }

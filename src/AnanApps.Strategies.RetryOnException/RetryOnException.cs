@@ -56,7 +56,7 @@
             while (true);
         }
 
-        public static async Task ActionAsync(RetryOnExceptionContext context, Func<Task> operation)
+        public static async Task ActionAsync(RetryOnExceptionContext context, Func<CancellationToken, Task> operation)
         {
             if (context == null)
             {
@@ -78,7 +78,7 @@
                     {
                         attempts++;
 
-                        await operation();
+                        await operation(context.Token);
 
                         break;
                     }
